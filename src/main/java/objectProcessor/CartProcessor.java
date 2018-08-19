@@ -1,8 +1,10 @@
+package objectProcessor;
+
 import com.opencsv.CSVReader;
+import dataObjects.Cart;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class CartProcessor {
 
         CSVReader reader = new CSVReader(new FileReader("C:\\Users\\danut\\Desktop\\CSVfiles\\Carts.txt"), ',');
 
-        List<Cart> carts = new ArrayList<Cart>();
+        List<Cart> carts = new ArrayList<>();
         String[] record = null;
 
         reader.readNext();
@@ -39,7 +41,6 @@ public class CartProcessor {
 
         reader.close();
 
-        System.out.println(carts);
         return carts;
     }
 
