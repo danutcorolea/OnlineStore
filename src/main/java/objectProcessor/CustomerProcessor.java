@@ -12,7 +12,7 @@ public class CustomerProcessor {
 
     public List<Customer> parseCSVFileLineByLine() throws IOException {
 
-        CSVReader reader = new CSVReader(new FileReader("C:\\Users\\danut\\Desktop\\CSVfiles\\Carts.txt"), ',');
+        CSVReader reader = new CSVReader(new FileReader("C:\\Users\\danut\\Desktop\\project\\CSVfiles\\Customers.txt"), ',');
 
         List<Customer> customers = new ArrayList<>();
         String[] record = null;
@@ -22,7 +22,7 @@ public class CustomerProcessor {
         while((record = reader.readNext())!= null){
 
             Customer customer = new Customer();
-            customer.setIdCustomer(Integer.parseInt(record[0]));
+
             customer.setName(record[1]);
             customer.setSurname(record[2]);
             customer.setEmail(record[3]);
@@ -31,10 +31,12 @@ public class CustomerProcessor {
             customer.setStreet(record[6]);
             customer.setStreetNumber(Integer.parseInt(record[7]));
             customers.add(customer);
+
         }
 
         reader.close();
-
+        System.out.println("Parsed " +customers.size() + " customer objects");
         return customers;
+
     }
 }
