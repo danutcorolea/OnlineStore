@@ -1,20 +1,23 @@
 package dataObjects;
 import java.sql.Date;
+import java.time.LocalDate;
 
 
 public class Cart {
 
     private int cartID;
     private int customerID;
+    private int purchaseID;
     private String category;
     private double ammount;
-    Date date;
+    private String date;
 
 
 
-    public Cart(int cartID, int customerID, Date date, String category, double ammount) {
+    public Cart(int cartID, int customerID, String date, int purchaseID, String category, double ammount) {
         this.cartID = cartID;
         this.customerID = customerID;
+        this.purchaseID = purchaseID;
         this.date = date;
         this.category = category;
         this.ammount = ammount;
@@ -32,11 +35,11 @@ public class Cart {
         return customerID;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -46,6 +49,14 @@ public class Cart {
 
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
+    }
+
+    public int getPurchaseID() {
+        return purchaseID;
+    }
+
+    public void setPurchaseID(int purchaseID) {
+        this.purchaseID = purchaseID;
     }
 
     public String getCategory() {
