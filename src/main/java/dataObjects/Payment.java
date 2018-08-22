@@ -1,22 +1,29 @@
 package dataObjects;
 
+import java.util.List;
+
 public class Payment {
 
     private int idPayment;
     private int idCart;
     private int idCustomer;
     private String Status;
-    private String Type;
+    private String type;
     private double ammount;
 
     public Payment(){}
+
+    public Payment(String type, double ammount) {
+        this.type = type;
+        this.ammount = ammount;
+    }
 
     public Payment(int idPayment, int idCart, int idCustomer, String status, String type, double ammount) {
         this.idPayment = idPayment;
         this.idCart = idCart;
         this.idCustomer = idCustomer;
         Status = status;
-        Type = type;
+        this.type = type;
         this.ammount = ammount;
     }
 
@@ -53,11 +60,11 @@ public class Payment {
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public void setType(String type) {
-        Type = type;
+        type = type;
     }
 
     public double getAmmount() {
@@ -66,5 +73,22 @@ public class Payment {
 
     public void setAmmount(double ammount) {
         this.ammount = ammount;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "type='" + type + '\'' +
+                ", ammount=" + ammount +
+                '}';
+    }
+
+    public double computeTotalAmmountOfPayments (List<Payment> payments){
+        double result = 0;
+        for (Payment p: payments) {
+            result = result + p.ammount;
+        }
+
+        return  result;
     }
 }
