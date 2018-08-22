@@ -10,14 +10,14 @@ public class Customer {
     private  String locality;
     private  String street;
     private  int streetNumber;
-    private  int idCustomer;
+
 
     public  Customer(){
 
     }
 
-    public Customer(int idCustomer, String name, String surname, String email, String country, String locality, String street, int streetNumber) {
-        this.idCustomer = idCustomer;
+    public Customer(String name, String surname, String email, String country, String locality, String street, int streetNumber) {
+
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -25,14 +25,6 @@ public class Customer {
         this.locality = locality;
         this.street = street;
         this.streetNumber = streetNumber;
-    }
-
-    public int getIdCustomer() {
-        return idCustomer;
-    }
-
-    public void setIdCustomer(int idCustomer) {
-        this.idCustomer = idCustomer;
     }
 
     public String getName() {
