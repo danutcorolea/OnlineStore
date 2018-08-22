@@ -12,7 +12,7 @@ public class PaymentProcessor {
 
     public List<Payment> parseCSVFileLineByLine() throws IOException {
 
-        CSVReader reader = new CSVReader(new FileReader("C:\\Users\\danut\\Desktop\\CSVfiles\\Carts.txt"), ',');
+        CSVReader reader = new CSVReader(new FileReader("C:\\Users\\danut\\Desktop\\project\\CSVfiles\\Payments.txt"), ',');
 
         List<Payment> payments = new ArrayList<>();
         String[] record = null;
@@ -29,10 +29,11 @@ public class PaymentProcessor {
             payment.setType(record[4]);
             payment.setAmmount(Double.parseDouble(record[5]));
             payments.add(payment);
+
         }
 
         reader.close();
-
+        System.out.println("Parsed " +payments.size() + " payment objects");
         return payments;
     }
 }
