@@ -1,24 +1,26 @@
-import com.opencsv.CSVReader;
+
+import dataObjects.Payment;
+import dataObjects.Receipt;
+import dataObjects.Store;
+import databaseManager.DBConnection;
+import databaseManager.DBManager;
+import objectProcessor.CartProcessor;
+import objectProcessor.CustomerProcessor;
+import objectProcessor.PaymentProcessor;
+import objectProcessor.ReceiptWriter;
 
 
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 
 
 public class Test {
 
    public static void main(String[] args) throws Exception {
-        DBManager db1 = new DBManager();
-        CartProcessor cartProcessor = new CartProcessor();
-         Connection connection1 = DBConnection.getConnection();
-       // db1.loadCarts(   cartProcessor.parseCSVFileLineByLine(),connection1 );
 
-        Cart cart = new Cart(100,100);
-        db1.insertNewCart(cart,connection1);
+    Store store = new Store();
 
    }
+
 
 
 }
