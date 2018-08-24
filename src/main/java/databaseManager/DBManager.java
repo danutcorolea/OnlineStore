@@ -5,6 +5,9 @@ import dataObjects.Customer;
 import dataObjects.Payment;
 import dataObjects.Purchase;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,8 @@ public class DBManager {
     private static String QUERY_INSERT_PURCHASES = "INSERT INTO PURCHASES (idPurchase, idCustomer, idCart, Category , Ammount) values (?,?,?,?,?);";
     private static String QUERY_GET_PURCHASES = "Select Category, Ammount from purchases where purchases.idCart=?";
     private static String QUERY_GET_PAYMENTS = "Select Type, Ammount from payments where payments.idCart=?";
+    private static String QUERY_GET_PAYMENTS_BY_DATE ="SELECT Ammount from payments, carts where payments.idCart = carts.idCart and carts.Date=?";
+    private static String QUERY_INSERT_PDF = "INSERT INTO PDFSTORAGE(idReceipt, pdf) values (?,?)";
 
 
     public void loadCarts(List<Cart> carts, Connection connection) throws SQLException {
@@ -94,6 +99,26 @@ public class DBManager {
 
     }
 
+    public void loadPDF(int idCart, String root , Connection connection) throws Exception
+    {
+        File pdfFile = new File(root);
+        byte[] pdfData = new byte[(int) pdfFile.length()];
+        DataInputStream dis = new DataInputStream(new FileInputStream(pdfFile));
+        dis.readFully(pdfData);
+        dis.close();
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT_PDF)){
+        preparedStatement.setInt(1,idCart);
+        preparedStatement.setBytes(2,pdfData);
+        preparedStatement.executeUpdate();
+
+        }
+        catch (SQLException e){}
+
+
+
+    }
+
     public List<Purchase> getPurchasesByCart(int idCart, Connection connection) throws SQLException {
         List<Purchase> purchases = new ArrayList<>();
 
@@ -135,5 +160,33 @@ public class DBManager {
 
         return payments;
     }
+
+    public double getTotalPaymentsByDate(String date, Connection connection)throws  SQLException
+    {
+
+        List<Double> lisOfAmmounts = new ArrayList<Double>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(QUERY_GET_PAYMENTS_BY_DATE)) {
+
+            preparedStatement.setString(1, date);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+
+                double ammount = resultSet.getDouble("Ammount");
+                lisOfAmmounts.add(ammount);
+
+            }
+            double totalAmmount = 0;
+            for (double ammount: lisOfAmmounts) {
+                totalAmmount = totalAmmount + ammount;
+            }
+
+        return totalAmmount;
+
+        }
+
+    }
+
+
 
     }
